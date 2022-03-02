@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Desive2.Views.VoiceMailPage"
+             xmlns:vm="clr-namespace:Desive2.ViewModels"
+             Title="Sprachnotiz hochladen">
+
+  
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">White</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <ScrollView  Grid.Row="0">
+            <StackLayout BackgroundColor="White" Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label TextColor="Black"  Text="Sprachnotiz" FontSize="Title" HorizontalTextAlignment="Start"/>
+                <Label TextColor="Black" Text="Drücken sie unten auf den Knopf um das aufnehmen einer SPrachnotiz zu starten. Lassen sie nichts aus, jede Info kann uns behilflich sein. Drücken sie zum Abschicken der Aufnahmen dann erneut den Knopf." FontSize="16" Padding="0,0,0,0"/>
+               
+                <Label FontSize="16" Padding="0,24,0,0">
+                  
+                </Label>
+
+            </StackLayout>
+        </ScrollView>
+        <StackLayout Grid.Row="1" BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                    <Image Source="voice_memo.png" VerticalOptions="Center" HeightRequest="375" />
+                </ContentView>
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>
