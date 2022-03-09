@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.VoiceMailPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
-             Title="Sprachnotiz hochladen">
+             Title="{Binding Title}">
 
-  
+    <ContentPage.BindingContext>
+        <vm:VoiceMailViewModel/>
+    </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -29,12 +31,32 @@
 
             </StackLayout>
         </ScrollView>
+
+        <StackLayout Margin="20,35,20,20">
+            <Label Text="Photo Picker"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+    
+           
+        </StackLayout>
+
         <StackLayout Grid.Row="1" BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="voice_memo.png" VerticalOptions="Center" HeightRequest="375" />
-                </ContentView>
+                <Button Text="{Binding RecordText}"
+                    
+                    IsEnabled="{Binding IsButtonActive}"
+                    Command="{Binding Audio}"
+                    />
+
+                <Button 
+                    Text="{Binding RecordText}"
+                    IsVisible="{Binding IsUploadVisible}"
+                    
+                    Command="{Binding UploadAudio}"
+                    />
+
             </StackLayout>
+            
         </StackLayout>
     </Grid>
 </ContentPage>

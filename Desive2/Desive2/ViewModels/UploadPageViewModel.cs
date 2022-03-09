@@ -15,11 +15,12 @@ namespace Desive2.ViewModels
         public UploadPageViewModel()
         {
             PhotoPicker = new Command(PickPhoto);
+            UploadPicture = new Command(Upload);
             Title = "Bilder hochladen";
         }
         public string Title{ get; set; }
         public ICommand PhotoPicker { get; set; }
-
+        public ICommand UploadPicture { get; set; }
         private bool isButtonActive = true;
         public bool IsButtonActive
         {
@@ -54,6 +55,10 @@ namespace Desive2.ViewModels
                 Console.WriteLine(ex.Message);
            
             }
+        }
+        async void Upload()
+        {
+
         }
     }
 }

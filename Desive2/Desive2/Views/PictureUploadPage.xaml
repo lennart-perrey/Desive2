@@ -7,26 +7,20 @@
     <ContentPage.BindingContext>
         <vm:UploadPageViewModel/>
     </ContentPage.BindingContext>
-    
-        <StackLayout Margin="20,35,20,20">
-            <Label Text="Photo Picker"
+
+    <StackLayout Margin="20,35,20,20">
+        <Label Text="Photo Picker"
                    FontAttributes="Bold"
                    HorizontalOptions="Center" />
-            <Button Text="Foto Auswählen"
+        <Button Text="Foto Auswählen"
                     
                     IsEnabled="{Binding IsButtonActive}"
                     Command="{Binding PhotoPicker}"
                     />
-            <Image x:Name="image" Source="{Binding Image.Source}"/>
+        <Image x:Name="image" Source="{Binding Image.Source}"/>
         <Button Text="Bild hochladen"
                     IsEnabled="{Binding IsButtonActive}"
-                    Command="{Binding PhotoPicker}"
+                    Command="{Binding UploadPicture}"
                     />
     </StackLayout>
-
-
-   
-
-    
-
 </ContentPage>

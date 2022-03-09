@@ -8,6 +8,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms.Platform.Android;
 using Android.Content;
+using AndroidX.Core.Content;
+using AndroidX.Core.App;
+using Android;
 
 namespace Desive2.Droid
 {
@@ -24,6 +27,13 @@ namespace Desive2.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            //Hier später nochmal schauen ob wir das woanders hin packen wollen!
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.RecordAudio) != Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.RecordAudio }, 1);
+            }
+
             LoadApplication(new App());
             Instance = this;
         }
