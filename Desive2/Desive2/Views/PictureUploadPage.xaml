@@ -3,24 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.PictureUploadPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
-             Title="Bilder Hochladen">
-            
+             Title="{Binding Title}">
     <ContentPage.BindingContext>
-        <vm:AboutViewModel />
+        <vm:UploadPageViewModel/>
     </ContentPage.BindingContext>
+    
+        <StackLayout Margin="20,35,20,20">
+            <Label Text="Photo Picker"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <Button Text="Foto Auswählen"
+                    
+                    IsEnabled="{Binding IsButtonActive}"
+                    Command="{Binding PhotoPicker}"
+                    />
+            <Image x:Name="image" Source="{Binding Image.Source}"/>
+        <Button Text="Bild hochladen"
+                    IsEnabled="{Binding IsButtonActive}"
+                    Command="{Binding PhotoPicker}"
+                    />
+    </StackLayout>
 
 
-    <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="#ffdb4a">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
+   
 
-        <StackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" Spacing="5">
-            <Label Text="Bitte Datei auswählen" TextColor="Black"/>
+    
 
-            <Entry Text="Screenshot.png" TextColor="Black" WidthRequest="300"/>
-        </StackLayout>
-        <Image Grid.Column="1" Source="icon_upload" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="30" WidthRequest="100"/>
-    </Grid>
 </ContentPage>

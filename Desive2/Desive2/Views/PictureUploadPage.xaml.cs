@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desive2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,12 @@ namespace Desive2.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PictureUploadPage : ContentPage
     {
+        
         public PictureUploadPage()
         {
+            
             InitializeComponent();
+            BindingContext = new UploadPageViewModel();
         }
     }
 }
