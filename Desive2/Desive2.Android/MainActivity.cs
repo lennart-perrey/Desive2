@@ -14,7 +14,7 @@ using Android;
 
 namespace Desive2.Droid
 {
-    [Activity( Theme = "@style/MainTheme", Icon = "@mipmap/icon_round", MainLauncher = false )]
+    [Activity(Label = "DESIVE²", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true, Icon = "@mipmap/launcher_foreground", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
