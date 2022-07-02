@@ -1,10 +1,12 @@
-﻿using Desive2.ViewModels;
+﻿using Desive2.Models;
+using Desive2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Desive2.Views
@@ -14,10 +16,24 @@ namespace Desive2.Views
         public LoginPage()
         {
             InitializeComponent();
-            BindingContext = new LoginPageViewModel(Navigation);
+
+            if (Preferences.Get("idUser", null) == null)
+            {
+                BindingContext = new LoginPageViewModel(Navigation);
+
+            }
+            else
+            {
+                GoToMain();
+            }
+
+       
 
         }
-
+        public async void GoToMain()
+        {
+            await Shell.Current.GoToAsync("//main");
+        }
 
     }
 

@@ -13,6 +13,7 @@ namespace Desive2.Views
     {
         public AboutPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
         }
     }

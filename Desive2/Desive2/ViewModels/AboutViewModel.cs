@@ -12,8 +12,8 @@ namespace Desive2.ViewModels
     {
         public AboutViewModel()
         {
-            Title = "Über uns";
-            OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
+            //Title = "Über uns";
+            OpenWebCommand = new Command(async () => await Browser.OpenAsync("http://www.desive2.com"));
         }
 
         public ICommand OpenWebCommand { get; }

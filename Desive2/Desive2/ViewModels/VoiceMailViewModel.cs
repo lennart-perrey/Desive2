@@ -11,6 +11,7 @@ namespace Desive2.ViewModels
 {
     public class VoiceMailViewModel : BindableObject
     {
+        public Task<String> Audiofile{ get; set; }
         private string title;
         public string Title
         {
@@ -21,7 +22,7 @@ namespace Desive2.ViewModels
             set
             {
                 title = value;
-                OnPropertyChanged(title);
+                OnPropertyChanged();
             }
         }
         private string recordText = "Hier klicken um eine Sprachnotiz aufzunehmennnn";
@@ -51,6 +52,7 @@ namespace Desive2.ViewModels
 
         public ICommand Audio { get; set; }
         public ICommand UploadAudio { get; set; }
+        
         public bool IsButtonActive { get; set; }
         private bool isUploadVisible = false;
         public bool IsUploadVisible
@@ -107,7 +109,15 @@ namespace Desive2.ViewModels
                 RecordText = "Aufnahme läuft...";
                 if (!Recorder.IsRecording)
                 {
-                    await Recorder.StartRecording();
+                    var recordTask = await Recorder.StartRecording();
+
+                    var audiofile = await recordTask;
+
+                    if(audiofile != null)
+                    {
+
+                    }
+
                 }
                 else
                 {

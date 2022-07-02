@@ -1,7 +1,9 @@
-﻿using Desive2.Views;
+﻿using Desive2.Models;
+using Desive2.Views;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Desive2.ViewModels
@@ -98,9 +100,27 @@ namespace Desive2.ViewModels
         async void LoginAction()
         {
             IsBusy = true;
+            int id = Database.CheckUser(this.Email, this.Password);
+          //  await App.Current.MainPage.DisplayAlert(Preferences.Get("email", null), Preferences.Get("idUser", null), Preferences.Get("password", null));
+            if (id != -1)
+            {
+                Preferences.Set("email", this.Email);
+                Preferences.Set("idUser", id.ToString());
+                Preferences.Set("password", this.Password);
 
+                Preferences.Get("Email", null);
+                 
+                await  Shell.Current.GoToAsync("//main");
+
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Test", "Test", "Test");
+                IsBusy = false;
+                this.Email = "";
+                this.Password = "";
+            }
             //TODO - perform your login action + navigate to the next page
-            await  Shell.Current.GoToAsync("//main");
             //Simulate an API call to show busy/progress indicator            
 
         }

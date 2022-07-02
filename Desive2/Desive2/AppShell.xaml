@@ -8,7 +8,8 @@
        FlyoutBehavior="Disabled"
        xmlns:local="clr-namespace:Desive2.Views"
        Title="Desive2"
-       x:Class="Desive2.AppShell">
+       x:Class="Desive2.AppShell"
+       NavigationPage.HasNavigationBar="False">
 
     <!--
         The overall app visual hierarchy is defined here, along with navigation.
@@ -20,15 +21,15 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="Black" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
                 
-                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
-                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.DisabledColor" Value="Black" />
+                <Setter Property="Shell.UnselectedColor" Value="{StaticResource Primary}" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Black"/>
+                
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
@@ -40,6 +41,9 @@
     </Shell.BindingContext>
 
     
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
+    </ShellItem>
     <TabBar Route="main">
         <ShellContent  Title="Über uns" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
         <ShellContent  Title="Sprachnotiz" Icon="icon_mic.png" ContentTemplate="{DataTemplate local:VoiceMailPage}" />
@@ -58,9 +62,6 @@
     -->
 
 
-    <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}"/>
-    </TabBar>
 
 
 
