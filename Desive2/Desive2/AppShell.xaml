@@ -7,6 +7,7 @@
        mc:Ignorable="d"
        FlyoutBehavior="Disabled"
        xmlns:local="clr-namespace:Desive2.Views"
+       
        Title="Desive2"
        x:Class="Desive2.AppShell"
        NavigationPage.HasNavigationBar="False">
@@ -21,14 +22,15 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="Sienna" />
                 <Setter Property="Shell.TitleColor" Value="Black" />
                 
-                <Setter Property="Shell.DisabledColor" Value="Black" />
-                <Setter Property="Shell.UnselectedColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.DisabledColor" Value="DarkKhaki" />
+                <Setter Property="Shell.UnselectedColor" Value="BlanchedAlmond" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="Black"/>
+                
                 
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
@@ -41,14 +43,15 @@
     </Shell.BindingContext>
 
     
-    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False" NavigationPage.HasNavigationBar="False">
         <ShellContent ContentTemplate="{DataTemplate local:LoginPage}"/>
     </ShellItem>
     <TabBar Route="main">
-        <ShellContent  Title="Über uns" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent  Title="Sprachnotiz" Icon="icon_mic.png" ContentTemplate="{DataTemplate local:VoiceMailPage}" />
-        <ShellContent  Title="Bilder hochladen" Icon="icon_upload.png" ContentTemplate="{DataTemplate local:PictureUploadPage}" />
-        <ShellContent  Title="Account" Icon="icon_account.png" ContentTemplate="{DataTemplate local:UserAccountPage}" />
+        <ShellContent Title="Über uns"  Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        <ShellContent   Title="Sprachotizen"  Icon="icon_mic.png" ContentTemplate="{DataTemplate local:VoiceMailPage}" />
+        <ShellContent   Title="Bilder"  Icon="icon_upload.png" ContentTemplate="{DataTemplate local:PictureUploadPage}" />
+        <ShellContent   Title="Umfragen"  Icon="icon_survey.png"  ContentTemplate="{DataTemplate local:SurveyPage}" />
+        <ShellContent   Title="Account"  Icon="icon_account.png" ContentTemplate="{DataTemplate local:UserAccountPage}" />
     </TabBar>
 
     <!--

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:Desive2.ViewModels" x:DataType="viewmodels:LoginPageViewModel"
              x:Class="Desive2.Views.LoginPage"
              Shell.FlyoutBehavior="Disabled">
     <ContentPage.Padding>
@@ -16,8 +16,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="3*" />
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="6*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="7*" />
 
         </Grid.RowDefinitions>
 
@@ -26,7 +26,7 @@
             BackgroundColor="#f27a11" />
 
 
-    
+
 
         <Image
             Grid.Row="0"
@@ -34,7 +34,7 @@
             VerticalOptions="Center"
             HorizontalOptions="Center"
             HeightRequest="400"
-            WidthRequest="400" />
+            WidthRequest="300" />
 
         <Label 
             Grid.Row="1"
@@ -72,19 +72,49 @@
                     IsPassword="True" 
                     TextColor="Black"/>
             </StackLayout>
-        </StackLayout>
+            <Grid   HorizontalOptions="Center"
+                    WidthRequest="300"
+                    BackgroundColor="#f27a11">
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                
+                <CheckBox Color="Black"  Grid.Column="0" IsChecked="{Binding IsChecked}"/>
+
+                <Label Grid.Column="1" Text="Hiermit bestätige, dass ich die Datenschutzerklärung gelesen und zur Kenntnis genommen habe" WidthRequest="300">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                   
+                     Value="true">
+                            <Setter Property="FontAttributes"
+                    Value="Italic, Bold" />
+                            <Setter Property="FontSize"
+                    Value="Large" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </Grid>
+            
+            <Button
+                Grid.Row="2"
+                Text="LOGIN"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="Center"
+                Margin="15,10"
+                BackgroundColor="#f27a11"
+                Command="{ Binding LoginCommand }"
+                />
+        </StackLayout>
+        
         <StackLayout
             Grid.Row="2"
             VerticalOptions="End"
             HorizontalOptions="Start"
-            Margin="10,0,0,15"
+            Margin="10,10,10,15"
             Spacing="15">
-            <Label Text="Passwort vergessen?" >
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{ Binding ForgotPasswordCommand }" />
-                </Label.GestureRecognizers>
-            </Label>
+           
             <Label Text="Account beantragen" >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer NumberOfTapsRequired="1" Command="{ Binding NewAccountCommand }" />
@@ -92,14 +122,7 @@
             </Label>
         </StackLayout>
 
-        <Button
-            Grid.Row="2"
-            Text="LOGIN"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="Center"
-            Margin="15,10"
-            BackgroundColor="#f27a11"
-            Command="{ Binding LoginCommand }" />
+        
 
         <!-- MODAL BACKGROUND LAYER -->
         <BoxView

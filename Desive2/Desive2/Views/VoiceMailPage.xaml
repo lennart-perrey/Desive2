@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.VoiceMailPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
-             Title="{Binding Title}">
+              NavigationPage.HasNavigationBar="False">
 
     <ContentPage.BindingContext>
         <vm:VoiceMailViewModel/>

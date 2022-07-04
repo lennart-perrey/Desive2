@@ -16,6 +16,7 @@ namespace Desive2.ViewModels
         {
             Navigation = _navigation;
             PageTitle = "Login";
+            IsChecked = false;
         }
 
         #region Properties
@@ -40,6 +41,19 @@ namespace Desive2.ViewModels
             set
             {
                 if (SetPropertyValue(ref _password, value))
+                {
+                    ((Command)LoginCommand).ChangeCanExecute();
+                }
+            }
+        }
+
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set
+            {
+                if (SetPropertyValue(ref _isChecked, value))
                 {
                     ((Command)LoginCommand).ChangeCanExecute();
                 }
@@ -91,9 +105,10 @@ namespace Desive2.ViewModels
         {
             //Perform your "Can Login?" logic here...
 
-            if (string.IsNullOrWhiteSpace(this.Email) || string.IsNullOrWhiteSpace(this.Password))
+            if ((string.IsNullOrWhiteSpace(this.Email) || string.IsNullOrWhiteSpace(this.Password)))
                 return false;
-
+            else if (!IsChecked)
+                return false;
             return true;
         }
 
@@ -115,7 +130,7 @@ namespace Desive2.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Test", "Test", "Test");
+                await App.Current.MainPage.DisplayAlert("Anmeldung fehlgeschlagen!", "Bitte überprüfen sie ihre Anmeldedaten!", "OK");
                 IsBusy = false;
                 this.Email = "";
                 this.Password = "";
@@ -139,10 +154,9 @@ namespace Desive2.ViewModels
             //Navigation.PushAsync(XXX);
         }
 
-        void NewAccountAction()
+        async void NewAccountAction()
         {
-            //TODO - navigate to your registration page
-            //Navigation.PushAsync(XXX);
+            await Browser.OpenAsync("http://www.desive2.com");
         }
 
         #endregion
