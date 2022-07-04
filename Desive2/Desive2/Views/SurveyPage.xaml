@@ -2,12 +2,58 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.SurveyPage"
-              NavigationPage.HasNavigationBar="False">
+             xmlns:vm="clr-namespace:Desive2.ViewModels"
+              NavigationPage.HasNavigationBar="True"
+             Title="{Binding Title}"   >
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="6*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <ScrollView Grid.Row="0">
+
+            <StackLayout>
+                
+                    <StackLayout>
+                        <Label Text="Welchem Geschlecht fühlen sie sich zugehörig?" />
+                        <RadioButton Content="Mann" />
+                        <RadioButton Content="Frau" />
+                        <RadioButton Content="Divers" />
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Wie alt sind Sie?" />
+                        <RadioButton Content="19 und jünger" />
+                        <RadioButton Content="zwischen 20 und 29 Jahre" />
+                        <RadioButton Content="zwischen 30 und 39 Jahre" />
+                        <RadioButton Content="zwischen 40 und 49 Jahre" />
+                        <RadioButton Content="zwischen 50 und 59 Jahre" />
+                        <RadioButton Content="zwischen 60 und 69 Jahre" />
+                        <RadioButton Content="70+ Jahre" />
+                    </StackLayout>
+                    <StackLayout>
+                        <Label Text="Wie alt sind Sie?" />
+                        <RadioButton Content="19 und jünger" />
+                        <RadioButton Content="zwischen 20 und 29 Jahre" />
+                        <RadioButton Content="zwischen 30 und 39 Jahre" />
+                        <RadioButton Content="zwischen 40 und 49 Jahre" />
+                        <RadioButton Content="zwischen 50 und 59 Jahre" />
+                        <RadioButton Content="zwischen 60 und 69 Jahre" />
+                        <RadioButton Content="70+ Jahre" />
+                    </StackLayout>
+            </StackLayout>
+
+
+   
+
+
+             
+            </ScrollView>
+            <Grid Grid.Row="1">
+                <Button Text="Absenden" Margin="20,20,20,20"/>
+            </Grid>
+                
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

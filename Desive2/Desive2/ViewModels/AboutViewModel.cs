@@ -14,6 +14,7 @@ namespace Desive2.ViewModels
         {
             //Title = "Über uns";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("http://www.desive2.com"));
+            Title = "Über uns";
         }
 
         public ICommand OpenWebCommand { get; }

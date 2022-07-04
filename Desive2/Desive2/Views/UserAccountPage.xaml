@@ -4,6 +4,7 @@
              x:Class="Desive2.Views.UserAccountPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
              NavigationPage.HasNavigationBar="False"
+             Title="{Binding Title}"
               >
 
     

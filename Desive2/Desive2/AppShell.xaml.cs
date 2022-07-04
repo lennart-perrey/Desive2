@@ -12,8 +12,7 @@ namespace Desive2
         {
             InitializeComponent();
            // Routing.RegisterRoute("registration", typeof(RegistrationModal));
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+           
             Routing.RegisterRoute(nameof(UserAccountPage), typeof(UserAccountPage));
             Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
         }

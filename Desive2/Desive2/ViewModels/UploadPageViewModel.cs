@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -12,21 +13,38 @@ namespace Desive2.ViewModels
 {
     public class UploadPageViewModel : BindableObject
     {
+       
         public UploadPageViewModel()
         {
             PhotoPicker = new Command(PickPhoto);
             UploadPicture = new Command(Upload);
             Title = "Bilder hochladen";
+  
+        }
+        private bool isUploadVisible = false;
+        public bool IsUploadVisible
+        {
+            get => isUploadVisible;
+            set
+            {
+                isUploadVisible = value; ;
+                OnPropertyChanged();
+            }
+        }
+        private string buttonText = "Foto auswählen";
+        public string ButtonText
+        {
+            get => buttonText;
+            set
+            {
+                buttonText = value;
+                OnPropertyChanged(); 
+            }
         }
         public string Title{ get; set; }
         public ICommand PhotoPicker { get; set; }
         public ICommand UploadPicture { get; set; }
-        private bool isButtonActive = true;
-        public bool IsButtonActive
-        {
-            get => isButtonActive;
-            set { isButtonActive = value; }
-        }
+        
 
         private Image _image = new Image();
         public Image Image {
@@ -34,21 +52,30 @@ namespace Desive2.ViewModels
             private set { _image = value; }
         
         }
-       
 
+        private long _streamLength;
+        public long StreamLength
+        {
+            get => _streamLength;
+            private set { _streamLength = value; }
+
+        }
+        private Stream stream;
         async void PickPhoto()
         {
 
             try
             {
 
-                IsButtonActive = false;
-                Stream stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+         
+                stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
                 if(stream != null)
                 {
                     Image.Source = ImageSource.FromStream(() => stream);
+                    StreamLength = stream.Length;
                 }
-                IsButtonActive = true;
+                IsUploadVisible = true;
+                ButtonText = "Anderes Foto hochladen";
             }
             catch(Exception ex)
             {
@@ -58,7 +85,11 @@ namespace Desive2.ViewModels
         }
         async void Upload()
         {
-
+            
         }
+
+        
     }
+
+ 
 }

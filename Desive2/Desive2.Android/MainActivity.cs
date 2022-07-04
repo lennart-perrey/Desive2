@@ -14,15 +14,17 @@ using Android;
 
 namespace Desive2.Droid
 {
-    [Activity(Label = "DESIVE²", Theme = "@style/MyTheme.Splash", MainLauncher = false, NoHistory = true, Icon = "@mipmap/launcher_foreground", ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
+    [Activity(Label = "DESIVE³", Theme = "@style/MyTheme.Splash", MainLauncher = true, Icon = "@mipmap/launcher_foreground")]
     public class MainActivity : FormsAppCompatActivity
     {
         internal static MainActivity Instance { get; private set; }
         public static readonly int PickImageId = 1000;
-        public TaskCompletionSource<Stream> PickImageTaskCompletionSource { get; set; }
+
+        public TaskCompletionSource<Stream> PickImageTaskCompletionSource { set; get; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Instance = this;
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -35,7 +37,6 @@ namespace Desive2.Droid
             }
 
             LoadApplication(new App());
-            Instance = this;
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -48,12 +49,14 @@ namespace Desive2.Droid
         {
             base.OnActivityResult(requestCode, resultCode, intent);
 
-            if(requestCode == PickImageId)
+            if (requestCode == PickImageId)
             {
-                if((resultCode==Result.Ok) && (intent != null))
+                if ((resultCode == Result.Ok) && (intent != null))
                 {
                     Android.Net.Uri uri = intent.Data;
                     Stream stream = ContentResolver.OpenInputStream(uri);
+
+                    // Set the Stream as the completion of the Task
                     PickImageTaskCompletionSource.SetResult(stream);
                 }
                 else
@@ -61,7 +64,6 @@ namespace Desive2.Droid
                     PickImageTaskCompletionSource.SetResult(null);
                 }
             }
-
         }
     }
 }

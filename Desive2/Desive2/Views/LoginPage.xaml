@@ -83,17 +83,21 @@
                 
                 <CheckBox Color="Black"  Grid.Column="0" IsChecked="{Binding IsChecked}"/>
 
-                <Label Grid.Column="1" Text="Hiermit bestätige, dass ich die Datenschutzerklärung gelesen und zur Kenntnis genommen habe" WidthRequest="300">
-                    <Label.Triggers>
-                        <DataTrigger TargetType="Label"
-                   
-                     Value="true">
-                            <Setter Property="FontAttributes"
-                    Value="Italic, Bold" />
-                            <Setter Property="FontSize"
-                    Value="Large" />
-                        </DataTrigger>
-                    </Label.Triggers>
+                <Label Grid.Column="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" WidthRequest="300">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Hiermit bestätige, dass ich die " />
+                            <Span Text="Datenschutzerklärung"
+                  TextColor="Blue"
+                  TextDecorations="Underline">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ClickCommand}"
+                                          CommandParameter="http://desive2.com" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                    <Span Text=" gelesen und zur Kenntnis genommen habe" />
+                        </FormattedString>
+                    </Label.FormattedText>
                 </Label>
             </Grid>
             

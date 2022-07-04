@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.VoiceMailPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
-              NavigationPage.HasNavigationBar="False">
+              NavigationPage.HasNavigationBar="False"
+             Title="{Binding Title}">
 
     <ContentPage.BindingContext>
         <vm:VoiceMailViewModel/>
@@ -23,7 +24,7 @@
         <ScrollView  Grid.Row="0">
             <StackLayout BackgroundColor="White" Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
                 <Label TextColor="Black"  Text="Sprachnotiz" FontSize="Title" HorizontalTextAlignment="Start"/>
-                <Label TextColor="Black" Text="Drücken sie unten auf den Knopf um das aufnehmen einer SPrachnotiz zu starten. Lassen sie nichts aus, jede Info kann uns behilflich sein. Drücken sie zum Abschicken der Aufnahmen dann erneut den Knopf." FontSize="16" Padding="0,0,0,0"/>
+                <Label TextColor="Black" Text="Drücken sie unten auf den Knopf um das aufnehmen einer Sprachnotiz zu starten. Lassen sie nichts aus, jede Info kann uns behilflich sein. Drücken sie zum Abschicken der Aufnahmen dann erneut den Knopf." FontSize="16" Padding="0,0,0,0"/>
                
                 <Label FontSize="16" Padding="0,24,0,0">
                   
@@ -32,24 +33,22 @@
             </StackLayout>
         </ScrollView>
 
-        <StackLayout Margin="20,35,20,20">
-            <Label Text="Photo Picker"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center" />
-    
-           
-        </StackLayout>
+     
 
-        <StackLayout Grid.Row="1" BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <Button Text="{Binding RecordText}"
+        <StackLayout Grid.Row="1" BackgroundColor="{StaticResource Accent}" WidthRequest="300" >
+            <StackLayout>
+                <Button WidthRequest="300" Text="{Binding RecordText}"
                     
-                    IsEnabled="{Binding IsButtonActive}"
+                    IsVisible="{Binding IsRecordingVisible}"
                     Command="{Binding Audio}"
                     />
-
-                <Button 
-                    Text="{Binding RecordText}"
+                <Button  WidthRequest="300"
+                    Text="{Binding StopText}"
+                    IsVisible="{Binding IsStopVisible}"                   
+                    Command="{Binding StopRecording}"
+                    />
+                <Button  WidthRequest="300"
+                    Text="{Binding UploadText}"
                     IsVisible="{Binding IsUploadVisible}"
                     
                     Command="{Binding UploadAudio}"

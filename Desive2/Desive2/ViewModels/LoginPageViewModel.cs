@@ -17,6 +17,7 @@ namespace Desive2.ViewModels
             Navigation = _navigation;
             PageTitle = "Login";
             IsChecked = false;
+           
         }
 
         #region Properties
@@ -116,8 +117,7 @@ namespace Desive2.ViewModels
         {
             IsBusy = true;
             int id = Database.CheckUser(this.Email, this.Password);
-          //  await App.Current.MainPage.DisplayAlert(Preferences.Get("email", null), Preferences.Get("idUser", null), Preferences.Get("password", null));
-            if (id != -1)
+           if (id != -1)
             {
                 Preferences.Set("email", this.Email);
                 Preferences.Set("idUser", id.ToString());
@@ -159,6 +159,27 @@ namespace Desive2.ViewModels
             await Browser.OpenAsync("http://www.desive2.com");
         }
 
+    
+
+        private Command clickCommand;
+
+        public ICommand ClickCommand
+        {
+            get
+            {
+                if (clickCommand == null)
+                {
+                    clickCommand = new Command(Click);
+                }
+
+                return clickCommand;
+            }
+        }
+
+        async void Click()
+        {
+            await Browser.OpenAsync("http://www.desive2.com/index.php/impressum/");
+        }
         #endregion
     }
 }

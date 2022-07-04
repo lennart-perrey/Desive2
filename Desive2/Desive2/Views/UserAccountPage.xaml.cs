@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Desive2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Desive2.Views
         public UserAccountPage()
         {
             InitializeComponent();
+            BindingContext = new UserAccountViewModel();
         }
     }
 }

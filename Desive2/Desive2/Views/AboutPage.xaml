@@ -4,7 +4,7 @@
              x:Class="Desive2.Views.AboutPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
              NavigationPage.HasNavigationBar="False"
-             >
+             Title="{Binding Title}">
 
     <ContentPage.BindingContext>
         <vm:AboutViewModel />
@@ -30,8 +30,8 @@
         </StackLayout>
         <ScrollView  Grid.Row="1">
             <StackLayout BackgroundColor="White" Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label TextColor="Black"  Text="Dies ist eine Test Überschrift" FontSize="Title"/>
-                <Label TextColor="Black" Text="Hier könnten am Ende Informationen zur App, sowie Impressum etc. stehen." FontSize="16" Padding="0,0,0,0"/>
+                <Label TextColor="Black"  Text="Desinformationsverhalten verstehen" FontSize="Title"/>
+                <Label TextColor="Black" Text="Test" FontSize="16" Padding="0,0,0,0"/>
                 <Label FontSize="16" Padding="0,24,0,0">
                     <Label.FormattedText>
                         <FormattedString>

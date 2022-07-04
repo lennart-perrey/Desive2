@@ -25,7 +25,7 @@ namespace Desive2.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string recordText = "Hier klicken um eine Sprachnotiz aufzunehmennnn";
+        private string recordText = "Hier klicken um eine Sprachnotiz aufzunehmen";
         public string RecordText
         {
             get => recordText;
@@ -35,6 +35,20 @@ namespace Desive2.ViewModels
                     return;
 
                 recordText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string uploadText = "Sprachnotiz hochladen";
+        public string UploadText
+        {
+            get => uploadText;
+            set
+            {
+                if (value == uploadText)
+                    return;
+
+                uploadText = value;
                 OnPropertyChanged();
             }
         }
@@ -52,8 +66,30 @@ namespace Desive2.ViewModels
 
         public ICommand Audio { get; set; }
         public ICommand UploadAudio { get; set; }
-        
-        public bool IsButtonActive { get; set; }
+        public ICommand StopRecording { get; set; }
+
+        private bool isRecordingVisible = true;
+        public bool IsRecordingVisible
+        {
+            get => isRecordingVisible;
+            set
+            {
+                isRecordingVisible = value;
+                OnPropertyChanged();
+            } 
+        }
+
+        private bool isStopVisible = false;
+        public bool IsStopVisible
+        {
+            get => isStopVisible;
+            set
+            {
+                isStopVisible = value; ;
+                OnPropertyChanged();
+            }
+        }
+
         private bool isUploadVisible = false;
         public bool IsUploadVisible
         {
@@ -72,8 +108,8 @@ namespace Desive2.ViewModels
 
             Audio = new Command(() => AudioRecorder());
             UploadAudio = new Command(() => AudioUpload());
-
-            IsButtonActive = false;
+            StopRecording = new Command(() => StopRecordingCommand());
+            
             
             Recorder = new AudioRecorderService
             {
@@ -106,9 +142,12 @@ namespace Desive2.ViewModels
             try
             {
 
-                RecordText = "Aufnahme läuft...";
-                if (!Recorder.IsRecording)
-                {
+                IsRecordingVisible = false;
+                IsStopVisible = true;
+                StopText = "Aufnahme Stoppen";
+
+               
+
                     var recordTask = await Recorder.StartRecording();
 
                     var audiofile = await recordTask;
@@ -118,17 +157,22 @@ namespace Desive2.ViewModels
 
                     }
 
-                }
-                else
-                {
-                    await Recorder.StopRecording();
-                }
+                
+
+                   
+
 
             }
             catch (Exception ex)
             {
 
             }               
+        }
+
+        private async Task StopRecordingCommand()
+        {
+            IsUploadVisible = true;
+            await Recorder.StopRecording();
         }
 
     }
