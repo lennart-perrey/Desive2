@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.PictureUploadPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
+             xmlns:renderer="clr-namespace:Desive2.Models"
               NavigationPage.HasNavigationBar="False"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
@@ -10,21 +11,21 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-        
-    <StackLayout Margin="20,35,20,20">
-        <Label TextColor="Black"  Text="Klicken sie auf den Button um Bilder hochzuladen!" FontSize="Subtitle"/>
 
-        <Button Text="{Binding ButtonText}"
+        <StackLayout Margin="20,35,20,20">
+            <Label TextColor="Black"  Text="Klicken sie auf den Button um Bilder hochzuladen!" FontSize="Subtitle"/>
+
+            <Button Text="{Binding ButtonText}"
                     
                     IsEnabled="True"
                     Command="{Binding PhotoPicker}"
                     />
-        <Image x:Name="image" Source="{Binding Image.Source}"/>
-        <Button Text="Bild hochladen"
+            <Image x:Name="image" Source="{Binding Image.Source}"/>
+            <Button Text="Bild hochladen"
                 IsVisible="{Binding IsUploadVisible}"
                 Command="{Binding UploadPicture}"
                
                     />
-    </StackLayout>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

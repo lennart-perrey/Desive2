@@ -123,7 +123,7 @@ namespace Desive2.ViewModels
                 Preferences.Set("idUser", id.ToString());
                 Preferences.Set("password", this.Password);
 
-                Preferences.Get("Email", null);
+            //    Preferences.Get("Email", null);
                  
                 await  Shell.Current.GoToAsync("//main");
 

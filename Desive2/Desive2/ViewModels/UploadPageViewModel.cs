@@ -1,13 +1,10 @@
 ﻿using Desive2.Services;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Desive2.Models;
+using Xamarin.Essentials;
 
 namespace Desive2.ViewModels
 {
@@ -19,8 +16,10 @@ namespace Desive2.ViewModels
             PhotoPicker = new Command(PickPhoto);
             UploadPicture = new Command(Upload);
             Title = "Bilder hochladen";
+            
   
         }
+        public ByteImage Logo{ get; set; }
         private bool isUploadVisible = false;
         public bool IsUploadVisible
         {
@@ -31,6 +30,7 @@ namespace Desive2.ViewModels
                 OnPropertyChanged();
             }
         }
+       
         private string buttonText = "Foto auswählen";
         public string ButtonText
         {
@@ -53,29 +53,31 @@ namespace Desive2.ViewModels
         
         }
 
-        private long _streamLength;
-        public long StreamLength
-        {
-            get => _streamLength;
-            private set { _streamLength = value; }
-
-        }
-        private Stream stream;
+        
+        public string Base64 { get; set; }
         async void PickPhoto()
         {
 
             try
             {
 
-         
-                stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
-                if(stream != null)
+
+                Stream stream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+                if (stream != null)
                 {
-                    Image.Source = ImageSource.FromStream(() => stream);
-                    StreamLength = stream.Length;
+                    using (MemoryStream memory = new MemoryStream())
+                    {
+                        stream.CopyTo(memory);
+                        byte[] bytes = memory.ToArray();
+                        Image.Source = ImageSource.FromStream(() => new MemoryStream(bytes));
+                            
+                        Base64 = System.Convert.ToBase64String(bytes);
+                    }
+                    
                 }
                 IsUploadVisible = true;
                 ButtonText = "Anderes Foto hochladen";
+                
             }
             catch(Exception ex)
             {
@@ -83,12 +85,20 @@ namespace Desive2.ViewModels
            
             }
         }
-        async void Upload()
+        void Upload()
         {
-            
+            string user = Preferences.Get("idUser", null);
+            bool upload = false;
+            if (user != null)
+            {
+                upload = Database.UploadPicture(user, Base64);
+                
+            }
+          
         }
 
-        
+       
+
     }
 
  

@@ -14,7 +14,6 @@ namespace Desive2.Models
         {
             string postData = $"mail={mail}" + $"&token={token}";
             int responseString = int.Parse(apiCall("validUser", postData));
-            Console.WriteLine(responseString);
             if (responseString > 0)
             {
 
@@ -24,6 +23,23 @@ namespace Desive2.Models
             else
             {
                 return -1;
+            }
+        }
+
+
+        public static bool UploadPicture(string user, string picture)
+        {
+            string postData = $"idAppUser={user}&picture={picture}";
+            int responseString = int.Parse(apiCall("uploadPicture", postData));
+            if (responseString > 0)
+            {
+
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
