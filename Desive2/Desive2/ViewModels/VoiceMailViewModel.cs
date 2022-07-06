@@ -1,17 +1,17 @@
-﻿using Plugin.AudioRecorder;
+﻿using Desive2.Models;
+using System.IO;
+using Plugin.AudioRecorder;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace Desive2.ViewModels
 {
     public class VoiceMailViewModel : BindableObject
     {
-        public Task<String> Audiofile{ get; set; }
+        public Task<string> Audiofile { get; set; }
         private string title;
         public string Title
         {
@@ -25,13 +25,41 @@ namespace Desive2.ViewModels
                 OnPropertyChanged();
             }
         }
+        private string listeningText = "Sprachnotiz anhören";
+        public string ListeningText
+        {
+            get
+            {
+                return listeningText;
+            }
+            set
+            {
+                listeningText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isListeningVisible = false;
+        public bool IsListeningVisible
+        {
+            get
+            {
+                return isListeningVisible;
+            }
+            set
+            {
+                isListeningVisible = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string recordText = "Hier klicken um eine Sprachnotiz aufzunehmen";
         public string RecordText
         {
             get => recordText;
             set
             {
-                if(value==recordText)
+                if (value == recordText)
                     return;
 
                 recordText = value;
@@ -58,15 +86,16 @@ namespace Desive2.ViewModels
         {
             get => stopText;
             set
-            {            
-                stopText= value;
+            {
+                stopText = value;
                 OnPropertyChanged();
             }
         }
 
-        public ICommand Audio { get; set; }
+        public ICommand StartRecording { get; set; }
         public ICommand UploadAudio { get; set; }
         public ICommand StopRecording { get; set; }
+        public ICommand PlayAudio { get; set; }
 
         private bool isRecordingVisible = true;
         public bool IsRecordingVisible
@@ -76,7 +105,7 @@ namespace Desive2.ViewModels
             {
                 isRecordingVisible = value;
                 OnPropertyChanged();
-            } 
+            }
         }
 
         private bool isStopVisible = false;
@@ -104,13 +133,10 @@ namespace Desive2.ViewModels
         public VoiceMailViewModel()
         {
             Title = "Sprachnotiz aufnehmen";
-        
-
-            Audio = new Command(() => AudioRecorder());
-            UploadAudio = new Command(() => AudioUpload());
-            StopRecording = new Command(() => StopRecordingCommand());
-            
-            
+            UploadAudio = new Command(AudioUploadCommand);
+            StopRecording = new Command(StopRecordingCommand);
+            StartRecording = new Command(StartRecordingCommand);
+            PlayAudio = new Command(PlayAudioCommand);
             Recorder = new AudioRecorderService
             {
                 StopRecordingOnSilence = true,
@@ -119,61 +145,57 @@ namespace Desive2.ViewModels
             };
         }
 
-        private async void AudioUpload()
+        private async void AudioUploadCommand()
         {
-            var recordTask = await Recorder.StartRecording();
-
-            var audioFile = await recordTask;
-
-            if (audioFile != null)
-            {
-
-            }
-
+            AudioPlayer player = new AudioPlayer();
+            var filePath = Recorder.GetAudioFilePath();
+            byte[] bytes = File.ReadAllBytes(filePath);
+            string file = Convert.ToBase64String(bytes);
+            string id = Preferences.Get("userId", null);
+            Database.UploadVoicemail(id, file);
         }
 
-        async void AudioRecorder()
-        {
-            await RecordAudio();
-        }
 
-        private async Task RecordAudio()
+
+
+        private async void StartRecordingCommand()
         {
+            IsRecordingVisible = false;
+            IsStopVisible = true;
             try
             {
-
-                IsRecordingVisible = false;
-                IsStopVisible = true;
-                StopText = "Aufnahme Stoppen";
-
-               
-
-                    var recordTask = await Recorder.StartRecording();
-
-                    var audiofile = await recordTask;
-
-                    if(audiofile != null)
-                    {
-
-                    }
-
-                
-
-                   
-
-
+                if (!Recorder.IsRecording)
+                {
+                    StopText = "Aufnahme Stoppen";
+                    await Recorder.StartRecording();
+                }
             }
             catch (Exception ex)
             {
 
-            }               
+            }
         }
 
-        private async Task StopRecordingCommand()
+        private async void StopRecordingCommand()
         {
-            IsUploadVisible = true;
-            await Recorder.StopRecording();
+            if (Recorder.IsRecording)
+            {
+                IsStopVisible = false;
+                IsListeningVisible = true;
+                IsUploadVisible = true;
+                IsRecordingVisible = true; ;
+                RecordText = "Neue Sprachnotiz aufnehmen";
+                await Recorder.StopRecording();
+            }
+        }
+        private async void PlayAudioCommand()
+        {
+
+            AudioPlayer player = new AudioPlayer();
+            var filePath = Recorder.GetAudioFilePath();
+            player.Play(filePath);
         }
 
+        
     }
 }

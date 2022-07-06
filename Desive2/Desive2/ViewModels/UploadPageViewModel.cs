@@ -85,7 +85,7 @@ namespace Desive2.ViewModels
            
             }
         }
-        void Upload()
+        async void Upload()
         {
             string user = Preferences.Get("idUser", null);
             bool upload = false;
@@ -94,7 +94,11 @@ namespace Desive2.ViewModels
                 upload = Database.UploadPicture(user, Base64);
                 
             }
-          
+            await App.Current.MainPage.DisplayAlert("Vielen Dank!", "Ihr Foto wurde erfolgreich hochgeladen!", "OK");
+            Image.Source = null;
+            IsUploadVisible = false;
+            ButtonText = "Foto auswählen";
+
         }
 
        

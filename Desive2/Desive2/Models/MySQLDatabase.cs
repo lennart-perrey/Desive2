@@ -43,6 +43,22 @@ namespace Desive2.Models
             }
         }
 
+        public static bool UploadVoicemail(string user, string picture)
+        {
+            string postData = $"idAppUser={user}&voiceMail={picture}";
+            int responseString = int.Parse(apiCall("uploadVoiceMail", postData));
+            if (responseString > 0)
+            {
+
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private static string apiCall(string action, string postData)
         {
             string requestString = API + "?action=" + action;

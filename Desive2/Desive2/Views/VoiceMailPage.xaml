@@ -37,22 +37,22 @@
 
         <StackLayout Grid.Row="1" BackgroundColor="{StaticResource Accent}" WidthRequest="300" >
             <StackLayout>
-                <Button WidthRequest="300" Text="{Binding RecordText}"
-                    
-                    IsVisible="{Binding IsRecordingVisible}"
-                    Command="{Binding Audio}"
-                    />
-                <Button  WidthRequest="300"
-                    Text="{Binding StopText}"
-                    IsVisible="{Binding IsStopVisible}"                   
-                    Command="{Binding StopRecording}"
-                    />
-                <Button  WidthRequest="300"
-                    Text="{Binding UploadText}"
-                    IsVisible="{Binding IsUploadVisible}"
-                    
-                    Command="{Binding UploadAudio}"
-                    />
+                <Button WidthRequest="300" 
+                        Text="{Binding RecordText}"
+                        IsVisible="{Binding IsRecordingVisible}"
+                        Command="{Binding StartRecording}"/>
+                <Button WidthRequest="300" 
+                        Text="{Binding ListeningText}"
+                        IsVisible="{Binding IsListeningVisible}"
+                        Command="{Binding PlayAudio}"/>
+                <Button WidthRequest="300"
+                        Text="{Binding StopText}"
+                        IsVisible="{Binding IsStopVisible}"                   
+                        Command="{Binding StopRecording}"/>
+                <Button WidthRequest="300"
+                        Text="{Binding UploadText}"
+                        IsVisible="{Binding IsUploadVisible}"                   
+                        Command="{Binding UploadAudio}"/>
 
             </StackLayout>
             
