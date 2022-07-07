@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+
 using System.Text;
 
 namespace Desive2.Models
@@ -57,6 +59,20 @@ namespace Desive2.Models
             {
                 return false;
             }
+        }
+
+        public static List<Survey> GetCurrentSurvey(string userId)
+        {
+            string requestString = API + "?action=getCurrentSurvey";
+            WebRequest request = WebRequest.Create(requestString);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            
+            List<Survey> survey = JsonConvert.DeserializeObject<List<Survey>>(responseString);
+            return survey;
         }
 
         private static string apiCall(string action, string postData)

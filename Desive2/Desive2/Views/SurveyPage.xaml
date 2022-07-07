@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Desive2.Views.SurveyPage"
              xmlns:vm="clr-namespace:Desive2.ViewModels"
-              NavigationPage.HasNavigationBar="True"
+              NavigationPage.HasNavigationBar="False"
              Title="{Binding Title}"   >
     <ContentPage.Content>
         <Grid>
@@ -14,7 +14,7 @@
             
             <ScrollView Grid.Row="0">
 
-            <StackLayout>
+            <StackLayout BindingContext="{Binding SurveyEntries}">
                 
                     <StackLayout>
                         <Label Text="Welchem Geschlecht fühlen sie sich zugehörig?" />

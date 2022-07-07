@@ -38,9 +38,7 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <Shell.BindingContext>
-        <vm:AppViewModel/>
-    </Shell.BindingContext>
+  
 
     
     <ShellItem Route="LoginPage" FlyoutItemIsVisible="False" NavigationPage.HasNavigationBar="False">
